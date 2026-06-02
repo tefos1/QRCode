@@ -124,102 +124,69 @@
   </div>
 
   <script>
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    let stars = [];
+  const galleryImages = [
+    "game-board.png",
+    "treasure-cards.png",
+    "penalty-cards.png",
+    "characters.png",
+    "spinner-wheel.png"
+  ];
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+  let currentImage = 0;
 
-      stars = Array.from({ length: 130 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.4,
-        speed: Math.random() * 0.35 + 0.08
-      }));
+  const modal = document.getElementById("galleryModal");
+  const galleryImage = document.getElementById("galleryImage");
+  const openGalleryBtn = document.querySelector(".open-gallery");
+  const closeGalleryBtn = document.querySelector(".close-gallery");
+  const nextBtn = document.querySelector(".next");
+  const prevBtn = document.querySelector(".prev");
+
+  function showImage(index) {
+    galleryImage.src = galleryImages[index];
+  }
+
+  openGalleryBtn.onclick = function(e) {
+    e.preventDefault();
+    currentImage = 0;
+    showImage(currentImage);
+    modal.classList.add("active");
+  };
+
+  closeGalleryBtn.onclick = function() {
+    modal.classList.remove("active");
+  };
+
+  nextBtn.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    currentImage = (currentImage + 1) % galleryImages.length;
+    showImage(currentImage);
+  };
+
+  prevBtn.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    currentImage = (currentImage - 1 + galleryImages.length) % galleryImages.length;
+    showImage(currentImage);
+  };
+
+  document.addEventListener("keydown", function(e) {
+    if (!modal.classList.contains("active")) return;
+
+    if (e.key === "ArrowLeft") {
+      currentImage = (currentImage + 1) % galleryImages.length;
+      showImage(currentImage);
     }
 
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.8)";
-        ctx.fill();
-
-        star.y += star.speed;
-
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      });
-
-      requestAnimationFrame(animateStars);
+    if (e.key === "ArrowRight") {
+      currentImage = (currentImage - 1 + galleryImages.length) % galleryImages.length;
+      showImage(currentImage);
     }
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-    animateStars();
-
-    const galleryImages = [
-      "game-board.png",
-      "treasure-cards.png",
-      "penalty-cards.png",
-      "characters.png",
-      "spinner-wheel.png"
-    ];
-
-    let currentImage = 0;
-
-    const modal = document.getElementById("galleryModal");
-    const galleryImage = document.getElementById("galleryImage");
-    const openGalleryBtn = document.querySelector(".open-gallery");
-    const closeGalleryBtn = document.querySelector(".close-gallery");
-    const nextBtn = document.querySelector(".next");
-    const prevBtn = document.querySelector(".prev");
-
-    openGalleryBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      currentImage = 0;
-      galleryImage.src = galleryImages[currentImage];
-      modal.classList.add("active");
-    });
-
-    closeGalleryBtn.addEventListener("click", function() {
+    if (e.key === "Escape") {
       modal.classList.remove("active");
-    });
-
-    nextBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-      currentImage++;
-
-      if (currentImage >= galleryImages.length) {
-        currentImage = 0;
-      }
-
-      galleryImage.src = galleryImages[currentImage];
-    });
-
-    prevBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-      currentImage--;
-
-      if (currentImage < 0) {
-        currentImage = galleryImages.length - 1;
-      }
-
-      galleryImage.src = galleryImages[currentImage];
-    });
-
-    modal.addEventListener("click", function(e) {
-      if (e.target === modal) {
-        modal.classList.remove("active");
-      }
-    });
-  </script>
-
+    }
+  });
+</script>
 </body>
 </html>
