@@ -36,7 +36,11 @@
 
       <article class="project-card">
         <div class="project-icon"><i class="fa-solid fa-robot"></i></div>
-        <div class="tags"><span>Education</span><span>Chatbot</span><span>AI</span></div>
+        <div class="tags">
+          <span>Education</span>
+          <span>Chatbot</span>
+          <span>AI</span>
+        </div>
         <h2>Dalel Ai</h2>
         <p>
           شات بوت في التربية غير المنهجية مختص في جميع امور المجال مثل تخطيط دروس تعليمية شرح مواد المساقات اقتراح وانشاء مبادرات ميدانية
@@ -49,7 +53,11 @@
 
       <article class="project-card">
         <div class="project-icon"><i class="fa-solid fa-list-check"></i></div>
-        <div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+        <div class="tags">
+          <span>JavaScript</span>
+          <span>CSS3</span>
+          <span>HTML5</span>
+        </div>
         <h2>موقع لتنظيم المهام والأهداف الشخصية</h2>
         <p>
           تطبيق ويب يساعد المستخدمين على إدارة وتنظيم أعمالهم اليومية تحديد الأولويات ومتابعة مدى تقدمهم في تحقيق أهدافهم الشخصية والأكاديمية
@@ -62,7 +70,11 @@
 
       <article class="project-card">
         <div class="project-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-        <div class="tags"><span>JavaScript</span><span>CSS3</span><span>HTML5</span></div>
+        <div class="tags">
+          <span>JavaScript</span>
+          <span>CSS3</span>
+          <span>HTML5</span>
+        </div>
         <h2>منصة الألعاب التفاعلية التعليمية</h2>
         <p>
           موقع ويب تفاعلي يهدف لتقديم المعرفة والمفاهيم الأكاديمية والتربوية للطلاب بأسلوب شيق وجذاب يسهل استيعابها ويعزز المشاركة والتعلم النشط
@@ -73,26 +85,18 @@
         </a>
       </article>
 
-      <article class="project-card treasure-project">
-        <div class="project-gallery">
-          <img src="images/game-board.png" alt="لوحة لعبة الكنز">
-          <img src="images/treasure-cards.png" alt="بطاقات الكنز">
-          <img src="images/penalty-cards.png" alt="بطاقات العقاب">
-          <img src="images/characters.png" alt="شخصيات اللعبة">
-          <img src="images/spinner-wheel.png" alt="عجلة اللعبة">
-        </div>
-
+      <article class="project-card">
+        <div class="project-icon"><i class="fa-solid fa-gamepad"></i></div>
         <div class="tags">
           <span>JavaScript</span>
-          <span>CSS</span>
-          <span>HTML</span>
+          <span>CSS3</span>
+          <span>HTML5</span>
+          <span>Game Dev</span>
         </div>
-
         <h2>لعبة الكنز التعليمية التفاعلية</h2>
         <p>
           لعبة تعليمية مصممة خصيصا لتعزيز قيم التعاون والمشاركة الإيجابية بين الطلاب عبر مجموعة من المسارات والتحديات والأنشطة التربوية الممتعة
         </p>
-
         <a href="#" class="project-btn open-gallery">
           <i class="fa-solid fa-images"></i>
           عرض بطاقات اللعبة
@@ -104,16 +108,16 @@
   </main>
 
   <div id="galleryModal" class="gallery-modal">
-    <span class="close-gallery">&times;</span>
+    <button class="close-gallery" type="button">&times;</button>
 
     <div class="gallery-content">
-      <img id="galleryImage" src="images/game-board.png" alt="صورة من لعبة الكنز">
+      <img id="galleryImage" src="game-board.png" alt="صورة من لعبة الكنز">
 
-      <button class="gallery-nav prev">
+      <button class="gallery-nav prev" type="button">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
 
-      <button class="gallery-nav next">
+      <button class="gallery-nav next" type="button">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
     </div>
@@ -161,11 +165,11 @@
     animateStars();
 
     const galleryImages = [
-      "images/game-board.png",
-      "images/treasure-cards.png",
-      "images/penalty-cards.png",
-      "images/characters.png",
-      "images/spinner-wheel.png"
+      "game-board.png",
+      "treasure-cards.png",
+      "penalty-cards.png",
+      "characters.png",
+      "spinner-wheel.png"
     ];
 
     let currentImage = 0;
@@ -188,19 +192,25 @@
       modal.classList.remove("active");
     });
 
-    nextBtn.addEventListener("click", function() {
+    nextBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
       currentImage++;
+
       if (currentImage >= galleryImages.length) {
         currentImage = 0;
       }
+
       galleryImage.src = galleryImages[currentImage];
     });
 
-    prevBtn.addEventListener("click", function() {
+    prevBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
       currentImage--;
+
       if (currentImage < 0) {
         currentImage = galleryImages.length - 1;
       }
+
       galleryImage.src = galleryImages[currentImage];
     });
 
